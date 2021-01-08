@@ -1,0 +1,84 @@
+name: "ADAM4150.Device.Modbus.Profile"
+manufacturer: "Cool Automation"
+model: "CoolMasterNet"
+labels:
+  - "ADAM"
+  - "开关测试"
+description: "ADAM module"
+
+deviceResources:
+  - name: "SwitchA"
+    description: "On/Off , 0-OFF 1-ON"
+    attributes:
+      { primaryTable: "COILS", startingAddress: "20" }
+    properties:
+      value:
+        { type: "BOOL", readWrite: "RW", scale: "1", minimum: "0", maximum: "1", defaultValue: "0" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "On/Off" }
+
+  - name: "SwitchB"
+    description: "On/Off , 0-OFF 1-ON"
+    attributes:
+      { primaryTable: "COILS", startingAddress: "22" }
+    properties:
+      value:
+        { type: "BOOL", readWrite: "RW", scale: "1", minimum: "0", maximum: "1", defaultValue: "0" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "On/Off" }
+
+deviceCommands:
+  - name: "SwitchA"
+    get:
+      - { index: "1", operation: "set", object: "SwitchA", parameter: "SwitchA" }
+    set:
+      - { index: "1", operation: "set", object: "SwitchA", parameter: "SwitchA" }
+
+  - name: "SwitchB"
+    get:
+      - { index: "1", operation: "set", object: "SwitchB", parameter: "SwitchB" }
+    set:
+      - { index: "1", operation: "set", object: "SwitchB", parameter: "SwitchB" }
+
+coreCommands:
+  - name: "SwitchA"
+    get:
+      path: "/api/v1/device/{deviceId}/SwitchA"
+      responses:
+        - code: "200"
+          description: "Get the Switch"
+          expectedValues: [ "SwitchA" ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+    put:
+      path: "/api/v1/device/{deviceId}/SwitchA"
+      parameterNames: [ "SwitchA" ]
+      responses:
+        - code: "204"
+          description: "Set the SwitchA"
+          expectedValues: [ ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+
+  - name: "SwitchB"
+    get:
+      path: "/api/v1/device/{deviceId}/SwitchB"
+      responses:
+        - code: "200"
+          description: "Get the Switch"
+          expectedValues: [ "SwitchB" ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+    put:
+      path: "/api/v1/device/{deviceId}/SwitchB"
+      parameterNames: [ "SwitchB" ]
+      responses:
+        - code: "204"
+          description: "Set the SwitchB"
+          expectedValues: [ ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]

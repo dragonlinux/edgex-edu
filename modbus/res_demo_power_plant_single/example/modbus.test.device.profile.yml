@@ -1,0 +1,336 @@
+name: "Test.Device.Modbus.Profile"
+manufacturer: "Cool Automation"
+model: "CoolMasterNet"
+labels:
+- "HVAC"
+- "Air conditioner"
+description: "CoolMasterNet is an unique communication bridge that seamlessly connects advanced VRF / Split Air Conditioning Systems and home automation / Building Management Systems (BMS) controllers."
+
+deviceResources:
+-
+  name: "SwitchA"
+  description: "On/Off , 0-OFF 1-ON"
+  attributes:
+    { primaryTable: "COILS", startingAddress: "1" }
+  properties:
+    value:
+      { type: "BOOL", readWrite: "RW", scale: "1", minimum: "0", maximum: "1", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "On/Off"}
+
+-
+  name: "SwitchB"
+  description: "On/Off , 0-OFF 1-ON"
+  attributes:
+    { primaryTable: "COILS", startingAddress: "2" }
+  properties:
+    value:
+      { type: "BOOL", readWrite: "RW", scale: "1", minimum: "0", maximum: "1", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "On/Off"}
+
+-
+  name: "cpu1"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "100" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "mem1"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "104" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "disk1"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "108" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "network1"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "112" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+
+-
+  name: "cpu2"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "116" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "mem2"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "120" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "disk2"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "124" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+-
+  name: "network2"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "128" }
+  properties:
+    value:
+      { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "500", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+
+-
+  name: "mensuo123"
+  description: "dragon description"
+  attributes:
+    { primaryTable: "HOLDING_REGISTERS", startingAddress: "6" }
+  properties:
+    value:
+      { type: "INT32", readWrite: "RW", scale: "1", minimum: "0", maximum: "9", defaultValue: "0"}
+    units:
+      { type: "String", readWrite: "R", defaultValue: "dragon defaultValue"}
+
+deviceCommands:
+-
+  name: "SwitchA"
+  get:
+  - { index: "1", operation: "set", object: "SwitchA", parameter: "SwitchA"}
+  set:
+  - { index: "1", operation: "set", object: "SwitchA", parameter: "SwitchA"}
+
+-
+  name: "SwitchB"
+  get:
+    - { index: "1", operation: "set", object: "SwitchB", parameter: "SwitchB", mappings: { "true":"ON","false":"OFF"}}
+  set:
+    - { index: "1", operation: "set", object: "SwitchB", parameter: "SwitchB", mappings: { "OFF":"false","ON":"true"}}
+
+-
+  name: "CPU1"
+  get:
+  - { index: "1", operation: "get", object: "cpu1", parameter: "cpu1" }
+
+-
+  name: "MEM1"
+  get:
+    - { index: "2", operation: "get", object: "mem1", parameter: "mem1" }
+
+-
+  name: "DISK1"
+  get:
+    - { index: "3", operation: "get", object: "disk1", parameter: "disk1" }
+
+-
+  name: "NETWORK1"
+  get:
+    - { index: "4", operation: "get", object: "network1", parameter: "network1" }
+
+-
+  name: "COMPUTER2"
+  get:
+  - { index: "1", operation: "get", object: "cpu2", parameter: "cpu2" }
+  - { index: "2", operation: "get", object: "mem2", parameter: "mem2" }
+  - { index: "3", operation: "get", object: "disk2", parameter: "disk2" }
+  - { index: "4", operation: "get", object: "network2", parameter: "network2" }
+  set:
+  - { index: "1", operation: "set", object: "cpu2", parameter: "cpu2" }
+  - { index: "2", operation: "set", object: "mem2", parameter: "mem2" }
+  - { index: "3", operation: "set", object: "disk2", parameter: "disk2" }
+  - { index: "4", operation: "set", object: "network2", parameter: "network2" }
+
+-
+  name: "mensuo123"
+  get:
+    - { index: "1", operation: "get", object: "mensuo123", parameter: "mensuo123" }
+  set:
+    - { index: "1", operation: "set", object: "mensuo123", parameter: "mensuo123" }
+
+
+coreCommands:
+-
+  name: "SwitchA"
+  get:
+    path: "/api/v1/device/{deviceId}/SwitchA"
+    responses:
+    - code: "200"
+      description: "Get the Switch"
+      expectedValues: ["SwitchA"]
+    - code: "503"
+      description: "service unavailable"
+      expectedValues: []
+  put:
+    path: "/api/v1/device/{deviceId}/SwitchA"
+    parameterNames: ["SwitchA"]
+    responses:
+    -
+      code: "204"
+      description: "Set the SwitchA"
+      expectedValues: []
+    -
+      code: "503"
+      description: "service unavailable"
+      expectedValues: []
+
+-
+  name: "SwitchB"
+  get:
+    path: "/api/v1/device/{deviceId}/SwitchB"
+    responses:
+      - code: "200"
+        description: "Get the Switch"
+        expectedValues: ["SwitchB"]
+      - code: "503"
+        description: "service unavailable"
+        expectedValues: []
+  put:
+    path: "/api/v1/device/{deviceId}/SwitchB"
+    parameterNames: ["SwitchB"]
+    responses:
+      -
+        code: "204"
+        description: "Set the SwitchB"
+        expectedValues: []
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+
+-
+  name: "CPU1"
+  get:
+    path: "/api/v1/device/{deviceId}/CPU1"
+    responses:
+    -
+      code: "200"
+      description: "Get the HVAC values from the device"
+      expectedValues: ["cpu1"]
+    -
+      code: "503"
+      description: "service unavailable"
+      expectedValues: []
+
+-
+  name: "MEM1"
+  get:
+    path: "/api/v1/device/{deviceId}/MEM1"
+    responses:
+      -
+        code: "200"
+        description: "Get the HVAC values from the device"
+        expectedValues: ["mem1"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+
+-
+  name: "DISK1"
+  get:
+    path: "/api/v1/device/{deviceId}/DISK1"
+    responses:
+      -
+        code: "200"
+        description: "Get the HVAC values from the device"
+        expectedValues: ["disk1"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+
+-
+  name: "NETWORK1"
+  get:
+    path: "/api/v1/device/{deviceId}/NETWORK1"
+    responses:
+      -
+        code: "200"
+        description: "Get the HVAC values from the device"
+        expectedValues: ["network1"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+
+-
+  name: "COMPUTER2"
+  get:
+    path: "/api/v1/device/{deviceId}/COMPUTER2"
+    responses:
+    -
+      code: "200"
+      description: "Get the HVAC values from the device"
+      expectedValues: ["cpu2","mem2","disk2","network2"]
+    -
+      code: "503"
+      description: "service unavailable"
+      expectedValues: []
+  put:
+    path: "/api/v1/device/{deviceId}/COMPUTER2"
+    parameterNames: ["cpu2","mem2","disk2","network2"]
+    responses:
+    -
+      code: "204"
+      description: "Set the HVAC Values"
+      expectedValues: []
+    -
+      code: "503"
+      description: "service unavailable"
+      expectedValues: []
+
+-
+  name: "mensuo123"
+  get:
+    path: "/api/v1/device/{deviceId}/mensuo123"
+    responses:
+      -
+        code: "200"
+        description: "Get the HVAC values from the device"
+        expectedValues: ["mensuo123"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+  put:
+    path: "/api/v1/device/{deviceId}/mensuo123"
+    parameterNames: ["mensuo123"]
+    responses:
+      -
+        code: "204"
+        description: "Set the HVAC Values"
+        expectedValues: []
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []

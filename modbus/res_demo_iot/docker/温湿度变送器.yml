@@ -1,0 +1,84 @@
+name: "485温湿度变送器"
+manufacturer: "Cool Automation"
+model: "CoolMasterNet"
+labels:
+  - "485 型温湿度变送器"
+
+description: ""
+
+deviceResources:
+  - name: "Sensor1"
+    description: "温度 temperature"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 1 }
+    properties:
+      value:
+        { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "9", defaultValue: "0" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "defaultValue" }
+
+  - name: "Sensor2"
+    description: "湿度 humidity"
+    attributes:
+      { primaryTable: "HOLDING_REGISTERS", startingAddress: 2 }
+    properties:
+      value:
+        { type: "INT16", readWrite: "RW", scale: "1", minimum: "0", maximum: "9", defaultValue: "0" }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "defaultValue" }
+
+deviceCommands:
+  - name: "Sensor1"
+    get:
+      - { index: "1", operation: "get", object: "Sensor1", parameter: "Sensor1" }
+    set:
+      - { index: "1", operation: "set", object: "Sensor1", parameter: "Sensor1" }
+
+  - name: "Sensor2"
+    get:
+      - { index: "1", operation: "get", object: "Sensor2", parameter: "Sensor2" }
+    set:
+      - { index: "1", operation: "set", object: "Sensor2", parameter: "Sensor2" }
+
+coreCommands:
+  - name: "Sensor1"
+    get:
+      path: "/api/v1/device/{deviceId}/Sensor1"
+      responses:
+        - code: "200"
+          description: "Get the HVAC values from the device"
+          expectedValues: [ "Sensor1" ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+    put:
+      path: "/api/v1/device/{deviceId}/Sensor1"
+      parameterNames: [ "Sensor1" ]
+      responses:
+        - code: "204"
+          description: "Set the HVAC Values"
+          expectedValues: [ ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+
+  - name: "Sensor2"
+    get:
+      path: "/api/v1/device/{deviceId}/Sensor2"
+      responses:
+        - code: "200"
+          description: "Get the HVAC values from the device"
+          expectedValues: [ "Sensor2" ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
+    put:
+      path: "/api/v1/device/{deviceId}/Sensor2"
+      parameterNames: [ "Sensor2" ]
+      responses:
+        - code: "204"
+          description: "Set the HVAC Values"
+          expectedValues: [ ]
+        - code: "503"
+          description: "service unavailable"
+          expectedValues: [ ]
