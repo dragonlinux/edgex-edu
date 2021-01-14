@@ -68,7 +68,7 @@ LogLevel = "DEBUG"
       Parity = "N"
       UnitID = "1"
     [[DeviceList.AutoEvents]]
-      Frequency = "15s"
+      Frequency = "57s"
       OnChange = true
       Resource = "Sensor1"
 
@@ -86,7 +86,7 @@ LogLevel = "DEBUG"
       Parity = "N"
       UnitID = "3"
     [[DeviceList.AutoEvents]]
-      Frequency = "10s"
+      Frequency = "63s"
       OnChange = true
       Resource = "Sensor2"
 
