@@ -29,7 +29,7 @@ File = './logs/simple-filter-xml-mqtt.log'
 # Database is require when Store and Forward is enabled
 [Database]
 Type = "redisdb"
-Host = "172.20.0.4"
+Host = "172.17.0.2"
 Port = 6379
 Timeout = "30s"
 Username = ""
@@ -38,7 +38,7 @@ Password = ""
 # SecretStore is required when Store and Forward is enabled and running with security
 # so Databse credentails can be pulled from Vault.
 [SecretStore]
-  Host = '172.20.0.4'
+  Host = '172.17.0.2'
   Port = 8200
   Path = '/v1/secret/edgex/application-service/'
   Protocol = 'https'
@@ -65,7 +65,7 @@ Type = 'zero'
         Port = 5564
         Protocol = 'tcp'
     [MessageBus.SubscribeHost]
-        Host = '172.20.0.4'
+        Host = '172.17.0.2'
         Port = 5563
         Protocol = 'tcp'
 
