@@ -505,7 +505,7 @@ services:
 #      - device-modbus
 
   simple-filter-json-mqtt-thingsboard-gateway:
-    image: linuxdragon/simple-filter-json-mqtt-thingsboard-gateway:4870b13bb965dc6a089dd843e62c57fcc558dd5f
+    image: linuxdragon/simple-filter-json-mqtt-thingsboard-gateway:e9711e84753ab454ca5070417967aaf98937f588
     container_name: simple-filter-json-mqtt-thingsboard-gateway
     hostname: simple-filter-json-mqtt-thingsboard-gateway
     networks:
