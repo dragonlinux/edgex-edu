@@ -46,7 +46,7 @@
         },
         "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
         "name": "室内和室外温度值",
-        "debugMode": false,
+        "debugMode": true,
         "configuration": {
           "tellFailureIfAbsent": true,
           "clientAttributeNames": [
@@ -107,7 +107,7 @@
         },
         "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
         "name": "室外",
-        "debugMode": false,
+        "debugMode": true,
         "configuration": {
           "jsScript": "var newMsg = {};\n\nnewMsg.outdoorTemperature = msg.outdoor_temperature;\n\nreturn {\n    msg: newMsg,\n    metadata: metadata,\n    msgType: msgType\n};"
         }
@@ -159,7 +159,7 @@
         },
         "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
         "name": "室内和室外温度值",
-        "debugMode": false,
+        "debugMode": true,
         "configuration": {
           "tellFailureIfAbsent": true,
           "clientAttributeNames": [
@@ -220,7 +220,7 @@
         },
         "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
         "name": "室内",
-        "debugMode": false,
+        "debugMode": true,
         "configuration": {
           "jsScript": "var newMsg = {};\n\nnewMsg.indoorTemperature = msg.indoor_temperature;\n\nreturn {\n    msg: newMsg,\n    metadata: metadata,\n    msgType: msgType\n};\n"
         }
@@ -254,13 +254,13 @@
       },
       {
         "fromIndex": 6,
-        "toIndex": 12,
-        "type": "indoor"
+        "toIndex": 5,
+        "type": "outdoor"
       },
       {
         "fromIndex": 6,
-        "toIndex": 5,
-        "type": "outdoor"
+        "toIndex": 12,
+        "type": "indoor"
       },
       {
         "fromIndex": 8,
