@@ -1,0 +1,293 @@
+{
+  "ruleChain": {
+    "additionalInfo": {
+      "description": ""
+    },
+    "name": "智慧温室-attributes",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": true,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 6,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 977,
+          "layoutY": 433
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "控制pin5-空气循环器",
+        "debugMode": true,
+        "configuration": {
+          "timeoutInSeconds": 60
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 875,
+          "layoutY": 531
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "空气循环器-逻辑判断",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var newMsg = {};\n\nnormalTemperatureLow = 20;\nnormalTemperatureHeight = 30;\nroomtemperature = parseInt(metadata.cs_indoorTemperature,10) / 10;\noutdoorTemperature = parseInt(metadata.cs_outdoorTemperature,10) / 10;\n\nif ((roomtemperature >= normalTemperatureLow) && (roomtemperature <= normalTemperatureHeight)) {\n    newMsg.params = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];\n} else {\n    if((outdoorTemperature >= normalTemperatureLow) && (outdoorTemperature <= normalTemperatureHeight)) {\n        newMsg.params = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];\n    } else {\n        newMsg.params = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];\n    }\n}\n\nnewMsg.method = \"setValuePin5\";\n\nreturn {\n\tmsg: newMsg,\n\tmetadata: metadata,\n\tmsgType: msgType\n};\n"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 702,
+          "layoutY": 433
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "室内和室外温度值",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [
+            "indoorTemperature",
+            "outdoorTemperature"
+          ],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 576,
+          "layoutY": 531
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgAttributesNode",
+        "name": "保存数据",
+        "debugMode": true,
+        "configuration": {
+          "scope": "CLIENT_SCOPE",
+          "notifyDevice": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 425,
+          "layoutY": 430
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "到资产控制pin5",
+        "debugMode": true,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "changeSwitch",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 301,
+          "layoutY": 529
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "室外",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "var newMsg = {};\n\nnewMsg.outdoorTemperature = msg.outdoor_temperature;\n\nreturn {\n    msg: newMsg,\n    metadata: metadata,\n    msgType: msgType\n};"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 125,
+          "layoutY": 379
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsSwitchNode",
+        "name": "根据类型改变",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "function nextRelation(metadata, msg) {\n\tif (metadata.deviceType === 'indoor thermometer') {\n\t\treturn ['indoor'];\n\t} else if (metadata.deviceType === 'outdoor thermometer') {\n\t    return ['outdoor'];\n\t}\n}\n\nreturn nextRelation(metadata, msg);\n        "
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 976,
+          "layoutY": 333
+        },
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "控制pin3-恒温机",
+        "debugMode": true,
+        "configuration": {
+          "timeoutInSeconds": 60
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 874,
+          "layoutY": 233
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "恒温机-逻辑判断",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "var newMsg = {};\n\nnormalTemperatureLow = 20;\nnormalTemperatureHeight = 30;\nroomtemperature = parseInt(metadata.cs_indoorTemperature,10) / 10;\noutdoorTemperature = parseInt(metadata.cs_outdoorTemperature,10) / 10;\n\nif ((roomtemperature >= normalTemperatureLow) && (roomtemperature <= normalTemperatureHeight)) {\n    newMsg.params = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];\n} else {\n    if((outdoorTemperature >= normalTemperatureLow) && (outdoorTemperature <= normalTemperatureHeight)) {\n        newMsg.params = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];\n    } else {\n        newMsg.params = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];\n    }\n}\n\nnewMsg.method = \"setValuePin3\";\n\nreturn {\n\tmsg: newMsg,\n\tmetadata: metadata,\n\tmsgType: msgType\n};\n"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 701,
+          "layoutY": 333
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "室内和室外温度值",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [
+            "indoorTemperature",
+            "outdoorTemperature"
+          ],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 575,
+          "layoutY": 233
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgAttributesNode",
+        "name": "保存数据",
+        "debugMode": true,
+        "configuration": {
+          "scope": "CLIENT_SCOPE",
+          "notifyDevice": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 424,
+          "layoutY": 330
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbChangeOriginatorNode",
+        "name": "到资产控制pin3",
+        "debugMode": true,
+        "configuration": {
+          "originatorSource": "RELATED",
+          "relationsQuery": {
+            "fetchLastLevelOnly": false,
+            "direction": "FROM",
+            "maxLevel": 1,
+            "filters": [
+              {
+                "relationType": "changeSwitch",
+                "entityTypes": [
+                  "DEVICE"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 300,
+          "layoutY": 231
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "室内",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "var newMsg = {};\n\nnewMsg.indoorTemperature = msg.indoor_temperature;\n\nreturn {\n    msg: newMsg,\n    metadata: metadata,\n    msgType: msgType\n};\n"
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 1,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 3,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 4,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 12,
+        "type": "indoor"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 5,
+        "type": "outdoor"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 7,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 10,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 12,
+        "toIndex": 11,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}
